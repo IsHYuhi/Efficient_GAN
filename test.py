@@ -22,14 +22,14 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-G = Generator(z_dim=20, image_size=64)
-D = Discriminator(z_dim=20, image_size=64)
+G = Generator(z_dim=20)
+D = Discriminator(z_dim=20)
 
 '''-------load weights-------'''
 G_load_weights = torch.load('./checkpoints/G_Efficient_GAN_1500.pth')
 G.load_state_dict(fix_model_state_dict(G_load_weights))
 
-D_load_weights = torch.load('./checkpoints/Efficient_AnoGAN_15000.pth')
+D_load_weights = torch.load('./checkpoints/D_Efficient_GAN_1500.pth')
 D.load_state_dict(fix_model_state_dict(D_load_weights))
 
 G.to(device)

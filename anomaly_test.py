@@ -43,9 +43,9 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-G = Generator(z_dim=20, image_size=64)
-D = Discriminator(z_dim=20, image_size=64)
-
+G = Generator(z_dim=20)
+D = Discriminator(z_dim=20)
+E = Encoder(z_dim=20)
 '''-------load weights-------'''
 G_load_weights = torch.load('./checkpoints/G_Efficient_GAN_1500.pth')
 G.load_state_dict(fix_model_state_dict(G_load_weights))
@@ -70,7 +70,7 @@ if device == 'cuda':
 
 batch_size = 5
 
-train_img_list = make_datapath_list(num=1000)
+train_img_list = make_datapath_list(num=5)
 mean = (0.5,)
 std = (0.5,)
 train_dataset = GAN_Img_Dataset(file_list=train_img_list, transform=ImageTransform(mean, std))
